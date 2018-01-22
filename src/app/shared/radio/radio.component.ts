@@ -25,7 +25,6 @@ export class RadioComponent implements OnInit, ControlValueAccessor {
 
   setValue(screenValue: any){
     this.value = screenValue
-    this.onChange = this.value
     this.registerOnChange(this.value)
   }
 
