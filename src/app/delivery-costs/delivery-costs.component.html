@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th style="width:50%">Itens:</th>
+        <td class="text-right">{{itemsValue | currency: 'BRL' : true}}</td>
+      </tr>
+      <tr>
+        <th>Frete:</th>
+          <td class="text-right" *ngIf="itemsValue > 0">
+            {{delivery | currency: 'BRL' : true}}
+          </td>
+          <td class="text-right" *ngIf="itemsValue <= 0">
+            R$ 0,00
+          </td>
+      </tr>
+      <tr>
+        <th>Total:</th>
+          <td class="text-right" *ngIf="itemsValue > 0">
+            {{total() | currency: 'BRL' : true}}
+          </td>
+          <td class="text-right" *ngIf="itemsValue <= 0">
+            R$ 0,00
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
