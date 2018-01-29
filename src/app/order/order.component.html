@@ -5,7 +5,9 @@
   <section class="invoice">
   <!--  {{form.valid}}
     {{form.value | json}} -->
-      <form #form="ngForm" novalidate>
+    <!-- Diretiva ngForm para Templates Forms  -->
+      <!--<form #form="ngForm" novalidate>-->
+      <form [formGroup]="orderForm" novalidate>
         <div class="row">
           <div class="col-xs-12">
             <h2 class="page-header">
@@ -13,29 +15,53 @@
             </h2>
           </div>
         </div>
-
+          <div class="row">
+            <div class="col-xs-12">
+                <p class="lead"> Seus Dados: </p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <mt-input-container label="Nome" sucessMessage="Ok" errorMessage="Campo Obrigatório">
+                <input class="form-control" label="Nome" formControlName="name"
+                   placeholder="Nome" autocomplete="off" type="text">
+              </mt-input-container>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <mt-input-container label="E-mail" sucessMessage="Ok" errorMessage="E-mail inválido">
+                  <input class="form-control" label="E-mail" formControlName="email"
+                   placeholder="E-mail" autocomplete="off" type="text">
+              </mt-input-container>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <mt-input-container label="E-mail" sucessMessage="Ok" errorMessage="E-mail inválido">
+                  <input class="form-control" label="E-mail" formControlName="emailConfirmation"
+                   placeholder="Confirmação do E-mail" autocomplete="off" type="text">
+              </mt-input-container>
+            </div>
+          </div>
         <div class="row invoice-info">
           <div class="col-xs-12">
             <p class="lead">Endereço de Entrega:</p>
           </div>
           <div class="col-sm-6 col-xs-12">
-            <mt-input-container label="Endereço" sucessMessage="Ok"
-              errorMessage="Campo Obrigatório">
-              <input class="form-control" name="address" ngModel required
-                minlength="5" placeholder="Endereço" autocomplete="off" type="text">
+            <mt-input-container label="Endereço" sucessMessage="Ok" errorMessage="Campo Obrigatório">
+              <input class="form-control" formControlName="address"
+                 placeholder="Endereço" autocomplete="off" type="text">
             </mt-input-container>
           </div>
           <div class="col-sm-3 col-xs-6">
             <mt-input-container label="Número" sucessMessage="Ok"
               errorMessage="Obrigatório e somente números">
-              <input type="text" class="form-control" name="number" autocomplete="off"
-                required ngModel pattern="^[0-9]*$" placeholder="Número">
+              <input type="text" class="form-control" formControlName="number" autocomplete="off"
+                  placeholder="Número">
+            <!--Templates Forms-->
+            <!--<input type="text" class="form-control" formControlName="number" autocomplete="off"
+                required ngModel pattern="^[0-9]*$" placeholder="Número">-->
             </mt-input-container>
           </div>
           <div class="col-sm-3 col-xs-6">
             <mt-input-container label="Complemento" sucessMessage="Ok">
-              <input type="text" class="form-control" name="optionalAddress"
-               ngModel placeholder="Complemento">
+              <input type="text" class="form-control" formControlName="optionalAddress"
+                placeholder="Complemento">
             </mt-input-container>
           </div>
       </div>
@@ -47,16 +73,13 @@
           (decreaseQty) ="decreaseQty($event)" (removeItem) ="removeItem($event)">
         </mt-order-items>
       </div>
-      <!-- /.row -->
       <div class="row">
-      <!-- accepted payments column -->
         <div class="col-sm-6 col-xs-12">
           <p class="lead">Formas de Pagamento:</p>
             <div class="form-group">
-              <mt-radio [options]="paymentOptions" name="paymentOption" ngModel required> </mt-radio>
+              <mt-radio [options]="paymentOptions" formControlName="paymentOptions"> </mt-radio>
             </div>
         </div>
-      <!-- /.col -->
         <div class="col-sm-6 col-xs-12">
           <p class="lead">Frete e Total:</p>
             <mt-delivery-costs [delivery] = "delivery"
@@ -67,7 +90,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <button (click)="checkOrder(form.value)" href="order-summary.html" [disabled] = "!form.valid || cartItems().length === 0"
+        <button (click)="checkOrder(orderForm.value)" href="order-summary.html" [disabled] = "!orderForm.valid || cartItems().length === 0"
           class="btn btn-success pull-right">
           <i class="fa fa-credit-card"></i> Concluir Pedido
         </button>
