@@ -372,30 +372,24 @@
   ],
   "orders": [
     {
-      "address": "Rua 1",
+      "name": "Ronaldo Vasconcelos",
+      "email": "sdvarela.ronaldo@gmail.com",
+      "emailConfirmation": "sdvarela.ronaldo@gmail.com",
+      "address": "Rua Itamaracá",
       "number": "12",
       "optionalAddress": "",
-      "paymentOption": "MON",
-      "orderItems": [
-        {
-          "quantity": 1,
-          "menuId": "cup"
-        }
-      ],
-      "id": 1
-    },
-    {
-      "address": "Rua 1",
-      "number": "12",
-      "optionalAddress": "",
-      "paymentOption": "MON",
+      "paymentOptions": "CRE",
       "orderItems": [
         {
           "quantity": 1,
           "menuId": "cup-cake"
+        },
+        {
+          "quantity": 1,
+          "menuId": "ceasar"
         }
       ],
-      "id": 2
+      "id": 1
     }
   ]
 }
