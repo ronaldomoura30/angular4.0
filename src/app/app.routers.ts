@@ -6,6 +6,8 @@ import {RestaurantDetailComponent} from './restaurant-detail/restaurant-detail.c
 import {MenuComponent} from './restaurant-detail/menu/menu.component'
 import {ReviewsComponent} from './restaurant-detail/reviews/reviews.component'
 import {OrderSumaryComponent} from './order-sumary/order-sumary.component'
+import {NotFoundComponent} from './not-found/not-found.component'
+
 //import {OrderComponent} from './order/order.component'
 //import {AboutComponent} from './about/about.component'
 
@@ -22,4 +24,6 @@ export const ROUTES: Routes = [
       {path:'reviews', component: ReviewsComponent}
     ]},
   {path:'order-summary', component: OrderSumaryComponent},
+  //Wildcard route
+  {path:'**', component: NotFoundComponent},
 ]

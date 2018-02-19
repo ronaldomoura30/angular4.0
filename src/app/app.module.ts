@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 
+//import { LocationStrategy, HashLocationStrategy} from '@angular/common'
 //import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {ROUTES} from './app.routers'
@@ -18,6 +19,7 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
 import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.component';
 import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component'
 import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 //import { ShoppingCartService } from './restaurant-detail/shopping-cart/shopping-cart.services';
 //import { OrderService } from "./order/order.service";
 //import { RestaurantsService} from './restaurants/restaurants.service';
@@ -45,6 +47,7 @@ import {SharedModule} from './shared/shared.module'
     MenuItemComponent,
     ReviewsComponent,
     OrderSumaryComponent,
+    NotFoundComponent,
 //  OrderComponent,
 //  OrderItemsComponent,
 //  DeliveryCostsComponent,
@@ -64,7 +67,10 @@ import {SharedModule} from './shared/shared.module'
 //  ReactiveFormsModule,
   ],
 //  providers: [RestaurantsService, ShoppingCartService, OrderService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
- providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
+
+// Utilizando # como caminho para aplicação
+//  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy},{provide: LOCALE_ID, useValue: 'pt-BR'}],
+  providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
