@@ -1,9 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style } from "@angular/animations"
 import { transition, animate, keyframes } from "@angular/animations"
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms"
 
-import {Restaurant} from './restaurant/restaurant.model'
-import {RestaurantsService} from './restaurants.service'
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/observable/from";
+import "rxjs/add/operator/switchMap";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+import "rxjs/add/operator/catch";
+
+import {Restaurant} from './restaurant/restaurant.model';
+import {RestaurantsService} from './restaurants.service';
+
 
 @Component({
   selector: 'mt-restaurants',
@@ -25,14 +35,35 @@ import {RestaurantsService} from './restaurants.service'
 })
 export class RestaurantsComponent implements OnInit {
 
+  searchForm: FormGroup;
+  searchControl: FormControl;
   searchBarState = 'hidden';
   restaurants: Restaurant[]
 
-  constructor(private restaurantsService: RestaurantsService) { }
+  constructor(private restaurantsService: RestaurantsService,
+              private formBuilder: FormBuilder){
+
+  }
 
   ngOnInit() {
-       this.restaurantsService.restaurants()
-        .subscribe(restaurants => this.restaurants = restaurants)
+      this.searchControl = this.formBuilder.control('');
+      this.searchForm = this.formBuilder.group({
+         searchControl: this.searchControl
+      })
+
+      this.searchControl.valueChanges
+      .debounceTime(500)
+      .distinctUntilChanged()
+      //.do(searchTerm => console.log(`q=${searchTerm}`))
+      .switchMap(searchTerm =>
+        this.restaurantsService
+         .restaurants(searchTerm)
+         .catch(error => Observable.from([])))
+      .subscribe(restaurants => this.restaurants = restaurants);
+
+      this.restaurantsService.restaurants()
+        .subscribe(restaurants => this.restaurants = restaurants);
+
   }
 
   toogleSearch(){
